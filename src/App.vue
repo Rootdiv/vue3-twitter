@@ -1,26 +1,47 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="wrapper">
+    <div class="wrapper-content">
+      <div class="view">
+        <div class="container">
+          <TweetForm @onSubmit="handleSubmit" />
+          <TweetsList :items="items" />
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+  import TweetForm from '@/components/TweetForm.vue';
+  import TweetsList from '@/components/TweetsList.vue';
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  export default {
+    components: { TweetForm, TweetsList },
+    //components: { TweetsList: List },
+    data() {
+      return {
+        items: [
+          {
+            id: 1,
+            body: 'hello vue 3',
+            likes: 12,
+            avatar: `https://avatars.dicebear.com/api/male/1.svg`,
+            date: new Date(Date.now()).toLocaleString(),
+          },
+          {
+            id: 2,
+            body: 'hello world',
+            likes: 6,
+            avatar: `https://avatars.dicebear.com/api/male/2.svg`,
+            date: new Date(Date.now()).toLocaleString(),
+          },
+        ],
+      };
+    },
+    methods: {
+      handleSubmit(item) {
+        this.items.push(item);
+      },
+    },
+  };
 </script>
-
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
